@@ -1,4 +1,4 @@
-################################################################################################################################################
+#######################################################################################################################################
 
 # This program takes ADCP data with gaps and bad data points and attempts to rid both gaps and bad data points
 
@@ -10,7 +10,7 @@
 
 # 3. Va Velocity
 
-################################################################################################################################################
+#######################################################################################################################################
 
 # Combining ADCP files
 
@@ -61,7 +61,7 @@ modifiedtime=np.arange(adcps.Variables.matlabTime[0],adcps.Variables.matlabTime[
 newadcp=cp.deepcopy(adcp)               
 newadcp.Variables.matlabTime=modifiedtime
 
-################################################################################################################################################
+#######################################################################################################################################
 
 # 1. Elevation 
 
@@ -110,10 +110,11 @@ diff_el=abs(adcps.Variables.el-velos2['h'])
 #plt.plot(modifedtime,velos2['h'])
 #show()
 
-#velos=newadcp.Utils.Harmonic_reconstruction(harmo2)
-#newadcp.Variables.el=velos['h']
-#plt.plot(adcps.Variables.matlabTime,adcps.Variables.el,'.')
-
+velos=newadcp.Utils.Harmonic_reconstruction(harmo2)
+newadcp.Variables.el=velos['h']
+plt.plot(adcps.Variables.matlabTime,adcps.Variables.el,'.')
+plt.plot(modifiedtime,velos['h'])
+show()
 #####################################################################################################################################
 
 
@@ -131,7 +132,7 @@ for index in range(len(listADCP)):
                 adcps=cp.deepcopy(adcp)
                 adcp12=cp.deepcopy(adcp)
 	        
-	else index == 1:
+	elif index == 1:
                 adcp12.Variables.el=np.hstack((adcp12.Variables.el,adcp.Variables.el))
                	adcp12.Variables.ua=np.hstack((adcp12.Variables.ua,adcp.Variables.ua))
                	adcp12.Variables.va=np.hstack((adcp12.Variables.va,adcp.Variables.va))
@@ -152,7 +153,7 @@ while (diff_ua > (np.mean(diff_ua)+2.5*np.std(diff_ua))).any():
         diff_ua=np.delete(diff_ua,x)
         adcps.Variables.ua = np.delete(adcps.Variables.ua,x)
         adcps.Variables.matlabTime = np.delete(adcps.Variables.matlabTime,x)
-       # print shape(diff_ua)
+        print shape(diff_ua)
         print shape(x)
 
 harmo3=adcps.Utils.Harmonic_analysis(elevation=False,velocity=True)
@@ -162,7 +163,7 @@ diff_ua=abs(adcps.Variables.ua-velos3['u'])
 #plt.plot(adcps.Variables.matlabTime,diff_ua,'.')
 #show()
 
-#################################################################################################################################################
+#######################################################################################################################################
 
 # 3. Va Velocity
 
@@ -177,7 +178,7 @@ for index in range(len(listADCP)):
                 adcps=cp.deepcopy(adcp)
                 adcp12=cp.deepcopy(adcp)
 
-        else index == 1:
+        elif index == 1:
                 adcp12.Variables.el=np.hstack((adcp12.Variables.el,adcp.Variables.el))
                 adcp12.Variables.ua=np.hstack((adcp12.Variables.ua,adcp.Variables.ua))
                 adcp12.Variables.va=np.hstack((adcp12.Variables.va,adcp.Variables.va))
@@ -208,5 +209,5 @@ diff_va=abs(adcps.Variables.va-velos2['v'])
 #show()
 
 
-################################################################################################################################################
+####################################################################################################################################
 
